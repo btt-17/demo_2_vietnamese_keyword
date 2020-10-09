@@ -1,0 +1,173 @@
+<!Doctype html>
+<html>
+   <head>
+      <title>Tìm từ khoá</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <script src="https://www.w3schools.com/lib/w3.js"></script>
+      <script>
+      function Clear(){
+        var template = document.getElementById('myTextarea').innerHTML;
+        var render = Mustache.render(template,{content:''});
+        document.getElementById('myTextarea').innerHTML = render;
+      }
+    </script>
+
+   <link rel="stylesheet" href="./static/jquery-ui.css">
+   <link href="{{ url_for('static', filename='jquery.highlighttextarea.css') }} " rel="stylesheet">
+   <script src="{{ url_for('static', filename='jquery-1.11.1.min.js') }}"></script>
+  
+  
+  <script>
+    var var_1 = '{{ result }}';
+   
+    var input_word = var_1.split(",");
+    var result = [];
+
+    function addToResult(value, index, array) {
+      result.push(value);
+    }
+
+    input_word.forEach(addToResult);
+    
+    
+    function appendScript(src, callback) {
+      var head = document.getElementsByTagName('head')[0];
+    
+      if (src.endsWith(".js")) {
+        var elt = document.createElement("script");
+        elt.type = "text/javascript";
+        elt.src = src;
+      } else {
+        var elt = document.createElement("link");
+        elt.rel = "stylesheet";
+        elt.link = src;
+      }
+
+      elt.onload = function() {
+        callback();
+      }
+
+      head.appendChild(elt);
+    }
+ 
+    function runTest() {
+      
+      $('#demo7-tools .disable').click(function(e) {
+          $('#myTextarea').highlightTextarea('disable');
+          e.preventDefault();
+      });
+      /*
+      $('#demo7-tools .enable').click(function(e) {
+          $('#demo7').highlightTextarea('enable');
+          addDemo7Events();
+          e.preventDefault();
+      });*/
+      $('#demo7-tools .setWords').click(function(e) {
+         
+          $('#myTextarea').highlightTextarea('enable');
+          $('#myTextarea').highlightTextarea('setWords',
+            result);
+          addDemo7Events();
+          e.preventDefault();
+      });
+    
+
+      addDemo7Events();
+    }
+
+    function addDemo7Events() {
+        $('#demo7-textarea mark')
+            .on('mouseover', function (e) {
+                $('#demo7-last-event').html('Mouseover');
+            })
+            .on('mouseout', function (e) {
+                $('#demo7-last-event').html('Mouseout');
+            });
+    }
+    
+    function test() {
+      var jqv = "jquery-2.1.1.min.js";
+
+      try {
+        jqv = window.location.search.split('?')[1].split('=')[1];
+      } catch (e) {}
+
+      appendScript("./static/" + jqv,
+        function() {
+          $('#jqv').val(jqv);
+
+          appendScript("./static/jquery-ui.min.js",
+          function() {
+            appendScript("./static/jquery.highlighttextarea.js",
+            runTest
+          )})});
+    }
+
+  function setJQuery(newVersion) {
+    var jqv = $('#jqv').val();
+
+    window.location = 'result.html?jqv=' + jqv;
+  }
+ 
+  window.onload = test;
+  </script>
+
+   </head>
+   <body>
+      <div class="container">
+       <div class="row">
+       <div class="col">
+        <br> 
+        <h4 class="text-success">Nhập văn bản:</h4> <br> 
+        <form action="{{ url_for('get_result') }}" method="post">
+         <div class="form-group" id="content">
+            <textarea id="myTextarea" name = "text" class="form-control" rows="10">{{content}}</textarea>
+         </div>
+         <button type="submit" class="btn btn-success" name="nut1" value="find">Tìm kiếm</button>
+         <button type="submit" class="btn btn-success" name="nut2" value="delete">Xoá</button>
+         <br><br>
+          <div id="demo7-tools">
+            <a  class="disable">Không đánh dấu</a> |
+  
+            <a  class="setWords">Đánh dấu</a> 
+         </div>
+
+        </form> <br>
+      </div>
+      <div class="col">
+        <br>   
+      <h4 class="text-success">Kết quả:</h4> <br> 
+       <div class="table">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+               <tr >
+                  <th class="text-center">Từ khoá</th>
+               </tr>
+            </thread>
+            <tbody>
+               {% for key, value in keywords.items() %}
+               <tr>
+                  <td class="text-center">{{key}}</td>
+               </tr>
+               {% endfor %}
+            </tbody>
+        </table> 
+        </div>
+       </div>
+        </div>
+      </div>
+       <br>   <br> 
+      <div class="jumbotron text-center" style="margin-bottom:0">
+      <p>Bản demo</p>
+      <p>Tìm các từ khoá cho văn bản Tiếng Việt</p>
+      <h4>Liên hệ:</h4>
+      <p>Email: tuanthanhbui46@gmail.com</p>      
+  </div>
+   </body>
+
+</html>

@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Tìm từ khoá</title>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script>
+    
+    <script type=text/javascript> 
+    </script> 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script>
+      function Clear(){
+        document.getElementById("myTextarea").value = "";
+      }
+    </script>
+</head>
+
+<body>   
+  <div class="container">
+   <div class="row">
+   <div class="col">
+    <br> 
+    <h4 class="text-success">Nhập văn bản:</h4> <br> 
+    <form action="{{ url_for('get_result') }}" method="post">
+      <div class="form-group">
+        <textarea id="myTextarea" name = "text" class="form-control" rows="10"></textarea>
+      </div>
+      <button type="submit" class="btn btn-success">Tìm kiếm</button>
+      <button type='button' class="btn btn-success" onClick="Clear()">Xoá</button>
+    </form><br>
+    </div>
+    <div class="col">
+    <br>   
+    <h4 class="text-success">Kết quả:</h4> <br> 
+    <div class="table">
+        <table  class="table table-striped">
+            <thead class="thead-dark">
+               <tr>
+                  <th class="text-center">Từ khoá</th>
+               </tr>
+            </thread>
+             <tbody>
+             <tr>
+                  <td class="text-center">Từ khoá 1</td>
+             </tr>
+              <tr>
+                  <td class="text-center">Từ khoá 2</td>
+             </tr>
+              <tr>
+                  <td class="text-center">Từ khoá 3</td>
+             </tr>
+              <tr>
+                  <td class="text-center">Từ khoá 4</td>
+             </tr>
+              <tr>
+                  <td class="text-center">Từ khoá 5</td>
+             </tr>
+              <tr>
+                  <td class="text-center">Từ khoá 6</td>
+             </tr>
+            </tbody>
+        </table> 
+         </div>
+        </div>
+      </div>
+  </div>
+   <br>   <br>   
+  <div class="jumbotron text-center" style="margin-bottom:0">
+      <p>Bản demo</p>
+      <p>Tìm các từ khoá cho văn bản Tiếng Việt</p>
+      <h4>Liên hệ:</h4>
+      <p>Email: tuanthanhbui46@gmail.com</p>      
+  </div>
+</body>    
+
+</html>

@@ -1,0 +1,19 @@
+pip3 freeze > requirements.txt
+install vncorenlp
+install JDK: heroku plugins:install java
+git init
+git add .
+git commit -m "first commit"
+heroku login
+heroku create
+heroku buildpacks:set heroku/python
+heroku buildpacks:add --index 1 heroku/jvm
+heroku buildpacks:add --index 2 heroku/nodejs
+npm install jquery
+git commit --allow-empty -m "Trigger Heroku deploy after enabling collectstatic"
+git push heroku master
+heroku open
+heroku logs --tail
+heroku apps:rename newname  // heroku apps:rename timtukhoa
+?git commit -m "redeploy" --allow-empty
+?web: gunicorn app:app --log-file=-
